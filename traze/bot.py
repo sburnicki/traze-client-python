@@ -50,7 +50,7 @@ class BotBase(Player, metaclass=ABCMeta):
     @property
     def actions(self) -> Set[Action]:
         # print("# actions at", self.x, self.y)
-        validActions:Set[Action] = set()
+        validActions = set()
         for action in list(Action):
             if self.valid(self.x + action.dX, self.y + action.dY):
                 validActions.add(action)

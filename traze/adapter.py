@@ -18,8 +18,8 @@ class TrazeMqttAdapter:
 
         self.connected = False
 
-        self.__client_id__:str = str(uuid.uuid4())
-        self._client:mqtt.Client = mqtt.Client(client_id = self.__client_id__, transport=transport)
+        self.__client_id__ = str(uuid.uuid4())
+        self._client = mqtt.Client(client_id = self.__client_id__, transport=transport)
         self._client.on_connect = _on_connect
         self._client.tls_set_context()
         self._client.connect(host, port)

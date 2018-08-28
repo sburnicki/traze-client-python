@@ -52,10 +52,10 @@ class Grid(Base):
 class Player(Base):
     def __init__(self, game:'Game', name:str):
         super().__init__(game, name=name)
-        self._alive:bool = False
+        self._alive = False
         self._x, self._y = [-1, -1]
-        self._id:int = None
-        self._secret:str = ''
+        self._id = None
+        self._secret = ''
         self._last = [self._x, self._y]
 
     def join(self, on_update:Callable[[None], None]=None) -> 'Player':
@@ -135,12 +135,12 @@ class Player(Base):
         self.adapter.publish_steer(self.game.name, self._id, self._secret, course)
 
     def bail(self):
-        self._alive:bool = False
+        self._alive = False
         self.adapter.publish_bail(self.game.name, self._id, self._secret)
 
         self._x, self._y = [-1, -1]
-        self._id:int = None
-        self._secret:str = ''
+        self._id = None
+        self._secret = ''
 
     def __str__(self):
         return "%s(name=%s, id=%s, x=%d, y=%d)" % (self.__class__.__name__, self.name, self._id, self._x, self._y)
@@ -148,7 +148,7 @@ class Player(Base):
 class Game(Base):
     def __init__(self, world:'World', name:str):
         super().__init__(world, name=name)
-        self._grid:Grid = Grid(self).join()
+        self._grid = Grid(self).join()
 
     @property
     def world(self) -> 'World':
@@ -162,7 +162,7 @@ class World(Base):
     def __init__(self, adapter=TrazeMqttAdapter()):
         super().__init__()
         self.__adapter__ = adapter
-        self.__games__:Dict[Game] = dict()
+        self.__games__ = dict()
 
         def add_game(name:str):
             if name not in self.__games__:

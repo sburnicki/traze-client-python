@@ -23,7 +23,7 @@ class MqttTopic:
 
     def subscribe(self, on_payload_func: Callable[[object], None]):
         def on_message(client, userdata, message: MQTTMessage):
-            payload:object = json.loads(str(message.payload, 'utf-8'))
+            payload = json.loads(str(message.payload, 'utf-8'))
             for on_payload in self.functions:
                 # print("  call %s at %s" % (on_payload, self._name))
                 on_payload(payload)
