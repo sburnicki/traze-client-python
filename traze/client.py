@@ -60,7 +60,7 @@ class Player(Base):
         super().__init__(game, name=name)
         self._alive = False
         self._x, self._y = [-1, -1]
-        self._id = None
+        self._id = -1
         self._secret = ''
         self._last = [self._x, self._y]
 
@@ -73,11 +73,9 @@ class Player(Base):
             on_update()
 
         def on_players(payload):
-            alive = False
-            for player in payload:
-                if (player['id'] == self._id):
-                    alive = True
-                    break
+            alive = self._id >= 0 and any((True for player in payload if player["id"] == self._id))
+            if not alive:
+                self._id = -1
             self._alive = alive
 
         def on_grid(payload):
